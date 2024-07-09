@@ -1,0 +1,150 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type UserModel {
+  firstName: String!
+  lastName: String!
+  email: String!
+  image: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type CreateUserResponse {
+  status: Float!
+  message: String!
+  data: UserModel!
+}
+
+type LoginData {
+  email: String!
+  userId: String!
+  firstName: String!
+  lastName: String!
+  createdAt: String!
+  updatedAt: String!
+  access_token: String!
+  refresh_token: String!
+}
+
+type LoginResponse {
+  status: Float!
+  message: String!
+  data: LoginData!
+}
+
+type Author {
+  firstName: String
+  lastName: String
+  authorId: String
+  authorImage: String
+  email: String
+}
+
+type BookModel {
+  bookId: String!
+  bookName: String!
+  publishedDate: String!
+  description: String!
+  price: Float!
+  genre: String!
+  image: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  author: Author!
+}
+
+type BookResponse {
+  status: Float!
+  message: String!
+  data: BookModel!
+}
+
+type BookListResponse {
+  status: Float!
+  message: String!
+  page: Float!
+  total: Float!
+  data: [BookModel!]!
+}
+
+type Query {
+  getHello: String!
+  books(GetAllBookInput: GetAllBookInput!): BookListResponse!
+  book(id: String!): BookResponse!
+  getBookByAuthor(GetMyBookInput: GetAllBookInput!): BookListResponse!
+  searchBook(searchBook: GetAllSearchBookInput!): BookListResponse!
+  filterBook(filterBook: GetAllFilterBookInput!): BookListResponse!
+}
+
+input GetAllBookInput {
+  page: Int! = 1
+  limit: Int! = 10
+}
+
+input GetAllSearchBookInput {
+  page: Int! = 1
+  limit: Int! = 10
+  searchTerm: String! = ""
+}
+
+input GetAllFilterBookInput {
+  page: Int! = 1
+  limit: Int! = 10
+  genre: String! = ""
+}
+
+type Mutation {
+  createUser(createUserInput: CreateUserInput!): CreateUserResponse!
+  updateUser(updateUserInput: UpdateUserInput!): CreateUserResponse!
+  login(email: String!, password: String!): LoginResponse!
+  createBook(createBookInput: CreateBookInput!): BookResponse!
+  updateBook(updateBookDto: UpdateBookInput!): BookResponse!
+  removeBook(id: String!): BookResponse!
+  uploadImage(image: Upload!): String!
+}
+
+input CreateUserInput {
+  firstName: String!
+  lastName: String!
+  email: String!
+  image: String!
+  password: String!
+}
+
+input UpdateUserInput {
+  firstName: String
+  lastName: String
+  email: String
+  image: String
+  password: String
+  id: String!
+}
+
+input CreateBookInput {
+  bookName: String!
+  publishedDate: String!
+  description: String!
+  price: String!
+  image: String!
+  genre: String!
+}
+
+input UpdateBookInput {
+  bookName: String
+  publishedDate: String
+  description: String
+  price: String
+  image: String
+  genre: String
+  id: String!
+}
+
+"""The `Upload` scalar type represents a file upload."""
+scalar Upload
